@@ -7,23 +7,38 @@
         <title>NewsPortal</title>
     </head>
     <body>
-        <header>
-            <h1>News Portal</h1>
+        <header class="site-header">
+            <div class="brand">
+                <span class="brand__eyebrow">Daily briefing</span>
+                <h1>News Portal</h1>
+            </div>
+            <p class="header__tagline">Stories worth your attention</p>
         </header>
         <main>
-            <div class="sources buttons"></div>
+            <section class="source-panel" aria-labelledby="sources-heading">
+                <div class="section-heading">
+                    <span class="section-heading__number">01</span>
+                    <h2 id="sources-heading">Choose a source</h2>
+                </div>
+                <div class="sources buttons" role="list" aria-label="News sources"></div>
+            </section>
+            <p class="app-status" role="status">Select a source to read the latest stories.</p>
             <div class="news"></div>
         </main>
-        <footer>
+        <footer class="site-footer">
             <p class="copyright">
-                Copyright <a href="https://newsapi.org">NewsAPI</a>
+                © 2026 News Portal · Data by <a href="https://newsapi.org" rel="noopener">NewsAPI</a>
             </p>
+            <a href="https://github.com/achulkova" target="_blank" rel="noopener noreferrer">Author GitHub</a>
+            <a class="course-logo" href="https://rs.school/courses/javascript" target="_blank" rel="noopener noreferrer">
+                <img src="https://rs.school/_next/static/media/rss-logo.c19ce1b4.svg" alt="RS School" />
+            </a>
         </footer>
 
         <template id="sourceItemTemp">
-            <div class="source__item">
+            <button class="source__item" type="button">
                 <span class="source__item-name"></span>
-            </div>
+            </button>
         </template>
 
         <template id="newsItemTemp">

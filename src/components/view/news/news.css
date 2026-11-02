@@ -1,13 +1,13 @@
 .news__item {
     display: flex;
     flex-direction: column;
-    margin: 1rem auto;
+    margin: 1rem 0;
     margin-bottom: 1.6%;
-    background: #fff;
-    color: #333;
+    background: #f6f1e8;
+    color: #1c292e;
     line-height: 1.4;
     font-family: Arial, sans-serif;
-    border-radius: 5px;
+    border-radius: 14px;
     overflow: hidden;
 }
 
@@ -124,7 +124,7 @@
 @media (min-width: 640px) {
     .news__item {
         flex-direction: row;
-        max-width: 700px;
+        max-width: 860px;
     }
 
     .news__item .news__meta {
