@@ -4,16 +4,18 @@ import placeholderImage from '../../../assets/news-placeholder.svg';
 
 class News {
     public draw(data: readonly Article[]): void {
+        const heroContainer = document.querySelector<HTMLElement>('.featured-news');
         const container = document.querySelector<HTMLElement>('.news');
         const cardTemplate = document.querySelector<HTMLTemplateElement>('#newsItemTemp');
         const heroTemplate = document.querySelector<HTMLTemplateElement>('#heroItemTemp');
-        if (!container || !cardTemplate || !heroTemplate) return;
+        if (!heroContainer || !container || !cardTemplate || !heroTemplate) return;
 
+        heroContainer.replaceChildren();
         container.replaceChildren();
         if (data.length === 0) return;
 
         const [featured, ...remaining] = data.slice(0, 10);
-        container.append(this.renderHero(featured, heroTemplate));
+        heroContainer.append(this.renderHero(featured, heroTemplate));
         const grid = document.createElement('div');
         grid.className = 'news-grid';
         remaining.forEach((article) => grid.append(this.renderCard(article, cardTemplate)));

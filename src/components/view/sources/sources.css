@@ -1,41 +1,91 @@
+.source-panel {
+    position: relative;
+    z-index: 2;
+    padding: 24px 20px 0;
+    color: var(--ink);
+    background: var(--cream);
+    border-radius: 18px 18px 0 0;
+}
+
+.section-heading--sources {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.section-heading--sources > div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.section-heading__number {
+    display: grid;
+    width: 30px;
+    height: 30px;
+    place-items: center;
+    color: #fff;
+    background: var(--orange);
+    border-radius: 8px;
+    font-size: 0.78rem;
+    letter-spacing: 0;
+}
+
+.section-heading h1 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.source-search {
+    order: 2;
+    flex: 1 1 260px;
+    width: auto;
+    padding: 9px 12px;
+    color: #677080;
+    background: #fff;
+    border: 1px solid #dfe0e5;
+    border-radius: 999px;
+}
+
+.source-search__input {
+    color: var(--ink);
+}
+
 .sources {
     display: flex;
-    flex-wrap: wrap;
-    gap: 9px;
-    align-content: flex-start;
-    max-height: 132px;
-    overflow-y: auto;
-    scrollbar-color: var(--orange) var(--panel);
+    flex-wrap: nowrap;
+    gap: 8px;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 2px 0 10px;
+    scrollbar-width: thin;
 }
 
 .source__item {
-    padding: 9px 14px;
-    color: var(--muted);
-    background: var(--panel);
-    border: 1px solid #3e2d55;
+    flex: 0 0 auto;
+    padding: 8px 14px;
+    color: var(--ink);
+    background: #f0f1f4;
+    border: 0;
     border-radius: 999px;
     cursor: pointer;
     font:
         0.78rem Arial,
         sans-serif;
-    transition: 0.2s ease;
 }
 
 .source__item:hover,
 .source__item:focus,
 .source__item--active {
-    color: var(--text);
-    background: var(--panel-light);
-    border-color: var(--orange);
+    color: #fff;
+    background: var(--orange);
     outline: none;
 }
 
-.source__item--active {
-    box-shadow: 0 0 0 2px #f28a4b33;
-}
-.source__item-name {
-    white-space: nowrap;
-}
 .sources__empty {
     width: 100%;
     margin: 8px 0;
