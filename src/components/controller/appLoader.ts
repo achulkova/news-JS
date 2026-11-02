@@ -1,6 +1,6 @@
 import Loader from './loader';
 
-const defaultApiUrl = 'https://rss-news-api.onrender.com';
+const defaultApiUrl = 'https://rss-news-api.onrender.com/mocks';
 
 class AppLoader extends Loader {
     public constructor() {
