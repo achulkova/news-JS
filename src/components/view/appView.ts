@@ -12,11 +12,29 @@ export class AppView {
     }
 
     public drawNews(data: NewsResponse): void {
-        this.news.draw(data.articles ?? []);
+        const articles = data.articles ?? [];
+        this.news.draw(articles);
+        this.setStatus(
+            articles.length === 0 ? 'No articles found for this source.' : `${articles.length} stories available.`,
+            articles.length === 0 ? 'empty' : 'success'
+        );
     }
 
     public drawSources(data: SourcesResponse): void {
-        this.sources.draw(data.sources ?? []);
+        const sources = data.sources ?? [];
+        this.sources.draw(sources);
+        this.setStatus(
+            sources.length === 0 ? 'No news sources are available.' : 'Select a source to read the latest stories.',
+            sources.length === 0 ? 'empty' : 'success'
+        );
+    }
+
+    private setStatus(message: string, state: 'success' | 'empty'): void {
+        const status = document.querySelector<HTMLElement>('.app-status');
+        if (status) {
+            status.textContent = message;
+            status.className = `app-status app-status--${state}`;
+        }
     }
 }
 

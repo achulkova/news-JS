@@ -1,10 +1,10 @@
 import AppLoader from './appLoader';
-import { ApiEndpoint } from '../../types/api';
+import { ApiEndpoint, isNewsResponse, isSourcesResponse } from '../../types/api';
 import type { NewsResponse, ResponseCallback, SourcesResponse } from '../../types/api';
 
 class AppController extends AppLoader {
     public getSources(callback: ResponseCallback<SourcesResponse>): void {
-        this.getResp<SourcesResponse>({ endpoint: ApiEndpoint.Sources }, callback);
+        this.getResp<SourcesResponse>({ endpoint: ApiEndpoint.Sources }, callback, isSourcesResponse);
     }
 
     public getNews(event: MouseEvent, callback: ResponseCallback<NewsResponse>): void {
@@ -25,7 +25,11 @@ class AppController extends AppLoader {
         }
 
         newsContainer.dataset.source = sourceId;
-        this.getResp<NewsResponse>({ endpoint: ApiEndpoint.Everything, options: { sources: sourceId } }, callback);
+        this.getResp<NewsResponse>(
+            { endpoint: ApiEndpoint.Everything, options: { sources: sourceId } },
+            callback,
+            isNewsResponse
+        );
     }
 }
 
