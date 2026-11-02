@@ -34,16 +34,16 @@
 
 .section-heading h1 {
     margin: 0;
-    font-size: 1.35rem;
+    font-size: 1.2rem;
     font-weight: 800;
     letter-spacing: -0.02em;
 }
 
 .source-search {
     order: 2;
-    flex: 1 1 260px;
+    flex: 0 1 360px;
     width: auto;
-    padding: 9px 12px;
+    padding: 8px 12px;
     color: #677080;
     background: #fff;
     border: 1px solid #dfe0e5;

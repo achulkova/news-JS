@@ -29,6 +29,10 @@ export class AppView {
         );
     }
 
+    public selectSource(sourceId: string): void {
+        this.sources.select(sourceId);
+    }
+
     private setStatus(message: string, state: 'success' | 'empty'): void {
         const status = document.querySelector<HTMLElement>('.app-status');
         if (status) {

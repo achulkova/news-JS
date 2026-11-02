@@ -20,11 +20,24 @@ class AppController extends AppLoader {
         }
 
         const sourceId = source.dataset.sourceId;
-        if (!sourceId || newsContainer.dataset.source === sourceId) {
+        if (!sourceId) {
             return;
         }
 
-        newsContainer.dataset.source = sourceId;
+        this.getNewsBySource(sourceId, callback, newsContainer);
+    }
+
+    public getNewsBySource(
+        sourceId: string,
+        callback: ResponseCallback<NewsResponse>,
+        newsContainer?: HTMLElement
+    ): void {
+        const container = newsContainer ?? document.querySelector<HTMLElement>('.sources');
+        if (!container || container.dataset.source === sourceId) {
+            return;
+        }
+
+        container.dataset.source = sourceId;
         this.getResp<NewsResponse>(
             { endpoint: ApiEndpoint.Everything, options: { sources: sourceId } },
             callback,

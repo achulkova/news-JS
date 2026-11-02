@@ -30,9 +30,9 @@ class News {
         const title = this.required<HTMLElement>(fragment, '.featured-article__title');
         const description = this.required<HTMLElement>(fragment, '.featured-article__description');
         const link = this.required<HTMLAnchorElement>(fragment, '.featured-article__link');
-        image.src = article.urlToImage || placeholderImage;
         image.alt = article.title;
         this.setImageFallback(image);
+        image.src = article.urlToImage || placeholderImage;
         source.textContent = article.source.name;
         date.textContent = this.formatDate(article.publishedAt);
         title.textContent = article.title;
@@ -50,9 +50,9 @@ class News {
         const title = this.required<HTMLElement>(fragment, '.news-card__title');
         const description = this.required<HTMLElement>(fragment, '.news-card__description');
         const link = this.required<HTMLAnchorElement>(fragment, '.news-card__link');
-        image.src = article.urlToImage || placeholderImage;
         image.alt = article.title;
         this.setImageFallback(image);
+        image.src = article.urlToImage || placeholderImage;
         this.setLink(imageLink, article.url);
         source.textContent = article.source.name;
         date.textContent = this.formatDate(article.publishedAt);

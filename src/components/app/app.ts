@@ -33,7 +33,14 @@ class App {
                 navigation.classList.remove('site-nav--open');
             }
         });
-        this.controller.getSources((data: SourcesResponse) => this.view.drawSources(data));
+        this.controller.getSources((data: SourcesResponse) => {
+            this.view.drawSources(data);
+            const firstSource = data.sources?.[0];
+            if (firstSource) {
+                this.view.selectSource(firstSource.id);
+                this.controller.getNewsBySource(firstSource.id, (news: NewsResponse) => this.view.drawNews(news));
+            }
+        });
     }
 }
 

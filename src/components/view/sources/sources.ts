@@ -28,6 +28,12 @@ class Sources {
         this.render(data, container, template);
     }
 
+    public select(sourceId: string): void {
+        document.querySelectorAll<HTMLElement>('.source__item').forEach((item) => {
+            item.classList.toggle('source__item--active', item.dataset.sourceId === sourceId);
+        });
+    }
+
     private render(data: readonly Source[], container: HTMLElement, template: HTMLTemplateElement): void {
         const fragment = document.createDocumentFragment();
         data.forEach((item: Source) => {
