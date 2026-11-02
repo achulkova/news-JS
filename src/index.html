@@ -1,49 +1,115 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>NewsPortal</title>
+        <meta name="description" content="News Portal — a daily editorial briefing." />
+        <title>News Portal | Daily briefing</title>
     </head>
     <body>
-        <header>
-            <h1>News Portal</h1>
+        <header class="site-header">
+            <a class="brand" href="#home" aria-label="News Portal home">
+                <span class="brand__mark">N</span>
+                <span class="brand__copy">
+                    <span class="brand__eyebrow">The daily edit</span>
+                    <span class="brand__name">News Portal</span>
+                </span>
+            </a>
+            <nav id="main-navigation" class="site-nav" aria-label="Main navigation">
+                <a class="site-nav__link site-nav__link--active" href="#home">Home</a>
+                <a class="site-nav__link" href="#sources-heading">Sources</a>
+                <a class="site-nav__link" href="#about">About</a>
+            </nav>
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">
+                <span class="visually-hidden">Toggle navigation</span>
+                <span></span><span></span>
+            </button>
         </header>
-        <main>
-            <div class="sources buttons"></div>
+        <main id="home">
+            <div class="featured-news"></div>
+            <section class="source-panel" aria-labelledby="sources-heading">
+                <div class="section-heading section-heading--sources">
+                    <div>
+                        <span class="section-heading__number">01</span>
+                        <h1 id="sources-heading">Choose a source</h1>
+                    </div>
+                    <label class="source-search">
+                        <span class="visually-hidden">Search news sources</span>
+                        <svg aria-hidden="true" viewBox="0 0 24 24">
+                            <path d="m21 21-4.35-4.35m2.1-5.4a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z" />
+                        </svg>
+                        <input
+                            class="source-search__input"
+                            type="search"
+                            placeholder="Search sources"
+                            autocomplete="off"
+                        />
+                    </label>
+                </div>
+                <div class="sources buttons" role="list" aria-label="News sources"></div>
+                <p class="app-status" role="status" aria-live="polite">Select a source to read the latest stories.</p>
+            </section>
             <div class="news"></div>
         </main>
-        <footer>
+        <footer class="site-footer" id="about">
+            <div>
+                <span class="brand__eyebrow">Stay curious</span>
+                <p class="site-footer__title">A sharper way to<br />read the world.</p>
+            </div>
             <p class="copyright">
-                Copyright <a href="https://newsapi.org">NewsAPI</a>
+                © 2026 News Portal · Data by <a href="https://newsapi.org" rel="noopener">NewsAPI</a>
             </p>
+            <div class="site-footer__links">
+                <a href="https://github.com/achulkova" target="_blank" rel="noopener noreferrer">Author GitHub</a>
+                <a
+                    class="course-logo"
+                    href="https://rs.school/courses/javascript"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <img src="https://rs.school/_next/static/media/rss-logo.c19ce1b4.svg" alt="RS School" />
+                </a>
+            </div>
         </footer>
 
         <template id="sourceItemTemp">
-            <div class="source__item">
+            <button class="source__item" type="button">
                 <span class="source__item-name"></span>
-            </div>
+            </button>
         </template>
 
         <template id="newsItemTemp">
-            <div class="news__item">
-                <div class="news__meta">
-                    <div class="news__meta-photo"></div>
-                    <ul class="news__meta-details">
-                        <li class="news__meta-author"></li>
-                        <li class="news__meta-date"></li>
-                    </ul>
+            <article class="news-card">
+                <a class="news-card__image-link" href="#">
+                    <img class="news-card__image" src="" alt="" />
+                </a>
+                <div class="news-card__body">
+                    <div class="article-meta">
+                        <span class="news-card__source"></span><span class="news-card__date"></span>
+                    </div>
+                    <h2 class="news-card__title"></h2>
+                    <p class="news-card__description"></p>
+                    <a class="news-card__link" href="#">Read article <span aria-hidden="true">↗</span></a>
                 </div>
-                <div class="news__description">
-                    <h2 class="news__description-title"></h2>
-                    <h3 class="news__description-source"></h3>
-                    <p class="news__description-content"></p>
-                    <p class="news__read-more">
-                        <a href="#">Read More</a>
-                    </p>
+            </article>
+        </template>
+
+        <template id="heroItemTemp">
+            <article class="featured-article">
+                <div class="featured-article__image-wrap">
+                    <img class="featured-article__image" src="" alt="" />
+                    <span class="featured-article__badge">Featured story</span>
                 </div>
-            </div>
+                <div class="featured-article__body">
+                    <div class="article-meta">
+                        <span class="featured-article__source"></span><span class="featured-article__date"></span>
+                    </div>
+                    <h2 class="featured-article__title"></h2>
+                    <p class="featured-article__description"></p>
+                    <a class="featured-article__link" href="#">Read full story <span aria-hidden="true">↗</span></a>
+                </div>
+            </article>
         </template>
     </body>
 </html>
