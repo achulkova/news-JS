@@ -3,6 +3,7 @@ import type { Source } from '../../../types/api';
 
 class Sources {
     private readonly items: Source[] = [];
+    private selectedSourceId = '';
 
     public constructor() {
         const search = document.querySelector<HTMLInputElement>('.source-search__input');
@@ -12,8 +13,10 @@ class Sources {
             if (!(target instanceof Element)) return;
             const source = target.closest<HTMLElement>('.source__item');
             if (!source) return;
-            document.querySelectorAll('.source__item').forEach((item) => item.classList.remove('source__item--active'));
-            source.classList.add('source__item--active');
+            const sourceId = source.dataset.sourceId;
+            if (sourceId) {
+                this.select(sourceId);
+            }
         });
     }
 
@@ -29,8 +32,11 @@ class Sources {
     }
 
     public select(sourceId: string): void {
+        this.selectedSourceId = sourceId;
         document.querySelectorAll<HTMLElement>('.source__item').forEach((item) => {
-            item.classList.toggle('source__item--active', item.dataset.sourceId === sourceId);
+            const isSelected = item.dataset.sourceId === sourceId;
+            item.classList.toggle('source__item--active', isSelected);
+            item.setAttribute('aria-pressed', String(isSelected));
         });
     }
 
@@ -43,8 +49,9 @@ class Sources {
             if (sourceItem && sourceName) {
                 sourceName.textContent = item.name;
                 sourceItem.dataset.sourceId = item.id;
-                sourceItem.setAttribute('role', 'listitem');
                 sourceItem.setAttribute('aria-label', item.name);
+                sourceItem.setAttribute('aria-pressed', String(item.id === this.selectedSourceId));
+                sourceItem.classList.toggle('source__item--active', item.id === this.selectedSourceId);
                 fragment.append(sourceClone);
             }
         });
