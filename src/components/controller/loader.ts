@@ -11,7 +11,7 @@ class Loader {
     }
 
     public getResp<T>(request: RequestOptions, callback: ResponseCallback<T>, validate: ResponseValidator<T>): void {
-        this.setStatus('Loading news…', 'loading');
+        this.setStatus(request.endpoint === 'sources' ? 'Loading news sources…' : 'Loading stories…', 'loading');
         void this.load<T>('GET', request.endpoint, callback, validate, request.options);
     }
 
