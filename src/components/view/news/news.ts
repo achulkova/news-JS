@@ -5,47 +5,81 @@ import placeholderImage from '../../../assets/news-placeholder.svg';
 class News {
     public draw(data: readonly Article[]): void {
         const container = document.querySelector<HTMLElement>('.news');
-        const template = document.querySelector<HTMLTemplateElement>('#newsItemTemp');
-        if (!container || !template) {
-            return;
-        }
+        const cardTemplate = document.querySelector<HTMLTemplateElement>('#newsItemTemp');
+        const heroTemplate = document.querySelector<HTMLTemplateElement>('#heroItemTemp');
+        if (!container || !cardTemplate || !heroTemplate) return;
 
-        const fragment = document.createDocumentFragment();
-        data.slice(0, 10).forEach((item: Article, index: number) => {
-            const newsClone = template.content.cloneNode(true) as DocumentFragment;
-            const newsItem = newsClone.querySelector<HTMLElement>('.news__item');
-            const photo = newsClone.querySelector<HTMLImageElement>('.news__meta-photo');
-            const author = newsClone.querySelector<HTMLElement>('.news__meta-author');
-            const date = newsClone.querySelector<HTMLElement>('.news__meta-date');
-            const title = newsClone.querySelector<HTMLElement>('.news__description-title');
-            const source = newsClone.querySelector<HTMLElement>('.news__description-source');
-            const description = newsClone.querySelector<HTMLElement>('.news__description-content');
-            const link = newsClone.querySelector<HTMLAnchorElement>('.news__read-more a');
-            if (!newsItem || !photo || !author || !date || !title || !source || !description || !link) {
-                return;
-            }
+        container.replaceChildren();
+        if (data.length === 0) return;
 
-            newsItem.classList.toggle('alt', index % 2 === 1);
-            photo.src = item.urlToImage || placeholderImage;
-            photo.alt = item.title;
-            photo.addEventListener(
-                'error',
-                () => {
-                    photo.src = placeholderImage;
-                },
-                { once: true }
-            );
-            author.textContent = item.author || item.source.name;
-            date.textContent = this.formatDate(item.publishedAt);
-            title.textContent = item.title;
-            source.textContent = item.source.name;
-            description.textContent = item.description || 'No description available.';
-            link.href = item.url;
-            link.target = '_blank';
-            link.rel = 'noopener noreferrer';
-            fragment.append(newsClone);
-        });
-        container.replaceChildren(fragment);
+        const [featured, ...remaining] = data.slice(0, 10);
+        container.append(this.renderHero(featured, heroTemplate));
+        const grid = document.createElement('div');
+        grid.className = 'news-grid';
+        remaining.forEach((article) => grid.append(this.renderCard(article, cardTemplate)));
+        container.append(grid);
+    }
+
+    private renderHero(article: Article, template: HTMLTemplateElement): DocumentFragment {
+        const fragment = template.content.cloneNode(true) as DocumentFragment;
+        const image = this.required<HTMLImageElement>(fragment, '.featured-article__image');
+        const source = this.required<HTMLElement>(fragment, '.featured-article__source');
+        const date = this.required<HTMLElement>(fragment, '.featured-article__date');
+        const title = this.required<HTMLElement>(fragment, '.featured-article__title');
+        const description = this.required<HTMLElement>(fragment, '.featured-article__description');
+        const link = this.required<HTMLAnchorElement>(fragment, '.featured-article__link');
+        image.src = article.urlToImage || placeholderImage;
+        image.alt = article.title;
+        this.setImageFallback(image);
+        source.textContent = article.source.name;
+        date.textContent = this.formatDate(article.publishedAt);
+        title.textContent = article.title;
+        description.textContent = article.description || 'Read the latest story from this source.';
+        this.setLink(link, article.url);
+        return fragment;
+    }
+
+    private renderCard(article: Article, template: HTMLTemplateElement): DocumentFragment {
+        const fragment = template.content.cloneNode(true) as DocumentFragment;
+        const image = this.required<HTMLImageElement>(fragment, '.news-card__image');
+        const imageLink = this.required<HTMLAnchorElement>(fragment, '.news-card__image-link');
+        const source = this.required<HTMLElement>(fragment, '.news-card__source');
+        const date = this.required<HTMLElement>(fragment, '.news-card__date');
+        const title = this.required<HTMLElement>(fragment, '.news-card__title');
+        const description = this.required<HTMLElement>(fragment, '.news-card__description');
+        const link = this.required<HTMLAnchorElement>(fragment, '.news-card__link');
+        image.src = article.urlToImage || placeholderImage;
+        image.alt = article.title;
+        this.setImageFallback(image);
+        this.setLink(imageLink, article.url);
+        source.textContent = article.source.name;
+        date.textContent = this.formatDate(article.publishedAt);
+        title.textContent = article.title;
+        description.textContent = article.description || 'No description available.';
+        this.setLink(link, article.url);
+        return fragment;
+    }
+
+    private required<T extends Element>(fragment: DocumentFragment, selector: string): T {
+        const element = fragment.querySelector<T>(selector);
+        if (!element) throw new Error(`Missing article template element: ${selector}`);
+        return element;
+    }
+
+    private setImageFallback(image: HTMLImageElement): void {
+        image.addEventListener(
+            'error',
+            () => {
+                image.src = placeholderImage;
+            },
+            { once: true }
+        );
+    }
+
+    private setLink(link: HTMLAnchorElement, url: string): void {
+        link.href = url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
     }
 
     private formatDate(value: string): string {

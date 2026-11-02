@@ -20,6 +20,19 @@ class App {
         sources.addEventListener('click', (event: MouseEvent) => {
             this.controller.getNews(event, (data: NewsResponse) => this.view.drawNews(data));
         });
+        const menuToggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+        const navigation = document.querySelector<HTMLElement>('.site-nav');
+        menuToggle?.addEventListener('click', () => {
+            const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', String(!isOpen));
+            navigation?.classList.toggle('site-nav--open', !isOpen);
+        });
+        navigation?.addEventListener('click', (event) => {
+            if (event.target instanceof HTMLAnchorElement) {
+                menuToggle?.setAttribute('aria-expanded', 'false');
+                navigation.classList.remove('site-nav--open');
+            }
+        });
         this.controller.getSources((data: SourcesResponse) => this.view.drawSources(data));
     }
 }
