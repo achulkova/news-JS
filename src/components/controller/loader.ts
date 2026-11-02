@@ -14,10 +14,11 @@ class Loader {
         request: RequestOptions,
         callback: ResponseCallback<T>,
         validate: ResponseValidator<T>,
-        isCurrent: () => boolean = () => true
+        isCurrent: () => boolean = () => true,
+        onError: () => void = () => {}
     ): void {
         this.setStatus(request.endpoint === 'sources' ? 'Loading news sources…' : 'Loading stories…', 'loading');
-        void this.load<T>('GET', request.endpoint, callback, validate, request.options, isCurrent);
+        void this.load<T>('GET', request.endpoint, callback, validate, request.options, isCurrent, onError);
     }
 
     protected async load<T>(
@@ -26,7 +27,8 @@ class Loader {
         callback: ResponseCallback<T>,
         validate: ResponseValidator<T>,
         options: Readonly<Record<string, string>> = {},
-        isCurrent: () => boolean = () => true
+        isCurrent: () => boolean = () => true,
+        onError: () => void = () => {}
     ): Promise<void> {
         try {
             const response = await fetch(this.makeUrl(options, endpoint), { method });
@@ -45,6 +47,7 @@ class Loader {
             if (isCurrent()) {
                 const message = error instanceof Error ? error.message : 'Unable to load news';
                 this.setStatus(message, 'error');
+                onError();
             }
         }
     }

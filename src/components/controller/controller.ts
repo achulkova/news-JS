@@ -45,7 +45,12 @@ class AppController extends AppLoader {
             { endpoint: ApiEndpoint.Everything, options: { sources: sourceId } },
             callback,
             isNewsResponse,
-            () => requestId === this.newsRequestId
+            () => requestId === this.newsRequestId,
+            () => {
+                if (requestId === this.newsRequestId) {
+                    delete container.dataset.source;
+                }
+            }
         );
     }
 }
