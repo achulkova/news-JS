@@ -4,9 +4,9 @@ const defaultApiUrl = 'https://rss-news-api.onrender.com';
 
 class AppLoader extends Loader {
     public constructor() {
-        super(process.env.API_URL || defaultApiUrl, {
-            apiKey: process.env.API_KEY || '',
-        });
+        const configuredApiUrl = process.env.API_URL;
+        const apiUrl = configuredApiUrl && configuredApiUrl !== 'MISSING_ENV_VAR' ? configuredApiUrl : defaultApiUrl;
+        super(apiUrl, {});
     }
 }
 
