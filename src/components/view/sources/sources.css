@@ -2,9 +2,14 @@
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    max-height: 180px;
+    overflow-y: auto;
     gap: 10px;
     align-items: center;
-    font: 300 1em Arial, sans-serif;
+    align-content: flex-start;
+    font:
+        300 1em Arial,
+        sans-serif;
 }
 
 .source__item {
