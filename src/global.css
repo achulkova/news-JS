@@ -72,6 +72,18 @@ main {
     color: #ff9a8b;
 }
 
+.app-status--loading {
+    color: #f0a35b;
+}
+
+.app-status--success {
+    color: #aab8bc;
+}
+
+.app-status--empty {
+    color: #f0c58f;
+}
+
 .site-footer {
     display: flex;
     align-items: center;
