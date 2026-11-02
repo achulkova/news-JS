@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+    <rect width="1200" height="800" fill="#263943"/>
+    <path d="M0 620 280 410l190 140 210-250 520 420H0Z" fill="#385460"/>
+    <circle cx="850" cy="220" r="95" fill="#f0a35b"/>
+    <text x="600" y="720" fill="#f7f4ed" font-family="Arial,sans-serif" font-size="42" text-anchor="middle">News Portal</text>
+</svg>

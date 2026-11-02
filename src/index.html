@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <meta charset="utf-8" />
@@ -22,7 +22,7 @@
                 </div>
                 <div class="sources buttons" role="list" aria-label="News sources"></div>
             </section>
-            <p class="app-status" role="status">Select a source to read the latest stories.</p>
+            <p class="app-status" role="status" aria-live="polite">Select a source to read the latest stories.</p>
             <div class="news"></div>
         </main>
         <footer class="site-footer">
@@ -30,7 +30,12 @@
                 © 2026 News Portal · Data by <a href="https://newsapi.org" rel="noopener">NewsAPI</a>
             </p>
             <a href="https://github.com/achulkova" target="_blank" rel="noopener noreferrer">Author GitHub</a>
-            <a class="course-logo" href="https://rs.school/courses/javascript" target="_blank" rel="noopener noreferrer">
+            <a
+                class="course-logo"
+                href="https://rs.school/courses/javascript"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
                 <img src="https://rs.school/_next/static/media/rss-logo.c19ce1b4.svg" alt="RS School" />
             </a>
         </footer>
@@ -44,7 +49,7 @@
         <template id="newsItemTemp">
             <div class="news__item">
                 <div class="news__meta">
-                    <div class="news__meta-photo"></div>
+                    <img class="news__meta-photo" src="" alt="" />
                     <ul class="news__meta-details">
                         <li class="news__meta-author"></li>
                         <li class="news__meta-date"></li>

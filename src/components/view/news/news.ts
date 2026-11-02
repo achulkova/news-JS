@@ -1,5 +1,6 @@
 import './news.css';
 import type { Article } from '../../../types/api';
+import placeholderImage from '../../../assets/news-placeholder.svg';
 
 class News {
     public draw(data: readonly Article[]): void {
@@ -13,7 +14,7 @@ class News {
         data.slice(0, 10).forEach((item: Article, index: number) => {
             const newsClone = template.content.cloneNode(true) as DocumentFragment;
             const newsItem = newsClone.querySelector<HTMLElement>('.news__item');
-            const photo = newsClone.querySelector<HTMLElement>('.news__meta-photo');
+            const photo = newsClone.querySelector<HTMLImageElement>('.news__meta-photo');
             const author = newsClone.querySelector<HTMLElement>('.news__meta-author');
             const date = newsClone.querySelector<HTMLElement>('.news__meta-date');
             const title = newsClone.querySelector<HTMLElement>('.news__description-title');
@@ -25,8 +26,15 @@ class News {
             }
 
             newsItem.classList.toggle('alt', index % 2 === 1);
-            photo.style.backgroundImage = `url(${item.urlToImage || 'img/news_placeholder.jpg'})`;
-            photo.setAttribute('aria-label', item.title);
+            photo.src = item.urlToImage || placeholderImage;
+            photo.alt = item.title;
+            photo.addEventListener(
+                'error',
+                () => {
+                    photo.src = placeholderImage;
+                },
+                { once: true }
+            );
             author.textContent = item.author || item.source.name;
             date.textContent = this.formatDate(item.publishedAt);
             title.textContent = item.title;

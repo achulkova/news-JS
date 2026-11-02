@@ -18,6 +18,10 @@ const baseConfig = {
                 exclude: /node_modules/,
                 use: 'ts-loader',
             },
+            {
+                test: /\.svg$/i,
+                type: 'asset/resource',
+            },
         ],
     },
     resolve: {

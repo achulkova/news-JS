@@ -3,3 +3,7 @@ declare const process: {
 };
 
 declare module '*.css';
+declare module '*.svg' {
+    const source: string;
+    export default source;
+}
