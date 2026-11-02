@@ -10,9 +10,14 @@ class Loader {
         this.options = options;
     }
 
-    public getResp<T>(request: RequestOptions, callback: ResponseCallback<T>, validate: ResponseValidator<T>): void {
+    public getResp<T>(
+        request: RequestOptions,
+        callback: ResponseCallback<T>,
+        validate: ResponseValidator<T>,
+        isCurrent: () => boolean = () => true
+    ): void {
         this.setStatus(request.endpoint === 'sources' ? 'Loading news sources…' : 'Loading stories…', 'loading');
-        void this.load<T>('GET', request.endpoint, callback, validate, request.options);
+        void this.load<T>('GET', request.endpoint, callback, validate, request.options, isCurrent);
     }
 
     protected async load<T>(
@@ -20,7 +25,8 @@ class Loader {
         endpoint: RequestOptions['endpoint'],
         callback: ResponseCallback<T>,
         validate: ResponseValidator<T>,
-        options: Readonly<Record<string, string>> = {}
+        options: Readonly<Record<string, string>> = {},
+        isCurrent: () => boolean = () => true
     ): Promise<void> {
         try {
             const response = await fetch(this.makeUrl(options, endpoint), { method });
@@ -32,10 +38,14 @@ class Loader {
             if (!validate(data)) {
                 throw new Error('The API returned an invalid response structure');
             }
-            callback(data);
+            if (isCurrent()) {
+                callback(data);
+            }
         } catch (error: unknown) {
-            const message = error instanceof Error ? error.message : 'Unable to load news';
-            this.setStatus(message, 'error');
+            if (isCurrent()) {
+                const message = error instanceof Error ? error.message : 'Unable to load news';
+                this.setStatus(message, 'error');
+            }
         }
     }
 

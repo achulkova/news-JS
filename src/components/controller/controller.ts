@@ -3,6 +3,8 @@ import { ApiEndpoint, isNewsResponse, isSourcesResponse } from '../../types/api'
 import type { NewsResponse, ResponseCallback, SourcesResponse } from '../../types/api';
 
 class AppController extends AppLoader {
+    private newsRequestId = 0;
+
     public getSources(callback: ResponseCallback<SourcesResponse>): void {
         this.getResp<SourcesResponse>({ endpoint: ApiEndpoint.Sources }, callback, isSourcesResponse);
     }
@@ -38,10 +40,12 @@ class AppController extends AppLoader {
         }
 
         container.dataset.source = sourceId;
+        const requestId = ++this.newsRequestId;
         this.getResp<NewsResponse>(
             { endpoint: ApiEndpoint.Everything, options: { sources: sourceId } },
             callback,
-            isNewsResponse
+            isNewsResponse,
+            () => requestId === this.newsRequestId
         );
     }
 }
