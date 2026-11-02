@@ -55,6 +55,7 @@ main,
     justify-content: space-between;
     min-height: 70px;
     padding: 0 20px;
+    margin-top: 24px;
     background: linear-gradient(110deg, #171229, #2c1940 70%, #62375d);
     border-bottom: 1px solid #49345c;
     border-radius: 18px 18px 0 0;
@@ -240,6 +241,7 @@ main {
     }
     .site-header {
         min-height: 66px;
+        margin-top: 14px;
         padding: 0 20px;
     }
     .menu-toggle {
